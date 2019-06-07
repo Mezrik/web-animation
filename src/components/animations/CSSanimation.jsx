@@ -1,28 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../../styles/CSSanimation.css';
+import '../../styles/animation.css';
 
-const getRandomColor = () => {
-  let letters = '0123456789ABCDEF';
-  let color = '#';
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
+import { getRandomColor, random } from '../../Helpers';
+import { animationConfig } from '../../config.js';
 
 const generateAnimation = (seed, max) => {
   let styleSheet = document.styleSheets[0];
 
-  let animationName = `animation${Math.round(Math.random() * max)}`;
+  let animationName = `animation${Math.round(random(max))}`;
 
   let keyframes =
   `@-webkit-keyframes ${animationName} {
-      10% {-webkit-transform:translate(${(Math.random() * (seed + seed)) - seed}%, ${(Math.random() * (seed + seed)) - seed}%)}
-      30% {-webkit-transform:translate(${(Math.random() * (seed + seed)) - seed}%, ${(Math.random() * (seed + seed)) - seed}%)}
-      50% {-webkit-transform:translate(${(Math.random() * (seed + seed)) - seed}%, ${(Math.random() * (seed + seed)) - seed}%)}
-      80% {-webkit-transform:translate(${(Math.random() * (seed + seed)) - seed}%, ${(Math.random() * (seed + seed)) - seed}%)}
-      100% {-webkit-transform:translate(${(Math.random() * (seed + seed)) - seed}%, ${(Math.random() * (seed + seed)) - seed}%)}
+      10% {-webkit-transform:translate(${random(-seed, seed)}px, ${random(-seed, seed)}px)}
+      30% {-webkit-transform:translate(${random(-seed, seed)}px, ${random(-seed, seed)}px)}
+      50% {-webkit-transform:translate(${random(-seed, seed)}px, ${random(-seed, seed)}px)}
+      80% {-webkit-transform:translate(${random(-seed, seed)}px, ${random(-seed, seed)}px)}
+      100% {-webkit-transform:translate(${random(-seed, seed)}px, ${random(-seed, seed)}px)}
   }`;
 
   styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
@@ -33,15 +27,15 @@ const generateAnimation = (seed, max) => {
 export const CSSanimation = (props) => {
 
   let movementAnimation = {
-      animationTimingFunction: 'ease',
-      animationDuration: '5s',
+      animationTimingFunction: 'ease-in-out',
+      animationDuration: `${animationConfig.duration}s`,
       animationDelay: '0.0s',
       animationIterationCount: 'infinite',
       animationDirection: 'alternate',
       animationFillMode: 'forwards'
   }
 
-  const seeds = new Array(props.particlesCount).fill(Math.floor(Math.random() * (2000 - 1000) + 1000));
+  const seeds = new Array(props.particlesCount).fill(Math.floor(random(200, 300)));
   let particles = seeds.map((seed) => {
     movementAnimation = {
       ...movementAnimation,

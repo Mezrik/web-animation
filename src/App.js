@@ -3,13 +3,15 @@ import {
   InputGroup,
   FormControl,
   Button,
-  Container, Row, Col
+  Container, Row, Col,
+  Alert,
 } from 'react-bootstrap';
 
 import './styles/App.css';
 
 import { FrameCounter } from './components/FrameCounter';
 import { CSSanimation } from './components/animations/CSSanimation';
+import { GSAPanimation } from './components/animations/GSAPanimation';
 
 export class App extends React.Component {
   constructor(props) {
@@ -19,16 +21,31 @@ export class App extends React.Component {
     this.state = {
       stop: true,
       particles: 100,
+      warning: null,
     }
   }
 
+  setParticles(value) {
+    value = parseInt(value);
+
+    value <= 10000 ?
+      this.setState({ particles: value }) :
+      this.setState({ warning: 'More than 10 000 particles will most likely crash your browser.'})
+  }
+
+  handleDismiss() {
+    this.setState({
+      warning: null,
+    });
+  }
+
   render() {
-    const { stop, particles } = this.state;
+    const { stop, particles, warning } = this.state;
 
     return (
       <div className='App'>
         <Container>
-          <Row>
+          <Row className='controls'>
             <Col xs={3}>
               <InputGroup className='mb-3'>
                 <FormControl
@@ -38,7 +55,7 @@ export class App extends React.Component {
                   ref={(ref) => { this.particlesCount = ref }}
                 />
                 <InputGroup.Append>
-                  <Button onClick={() => this.setState({ particles: parseInt(this.particlesCount.value) })} variant='secondary'>Submit</Button>
+                  <Button onClick={() => this.setParticles(this.particlesCount.value)} variant='secondary'>Submit</Button>
                 </InputGroup.Append>
               </InputGroup>
             </Col>
@@ -49,7 +66,12 @@ export class App extends React.Component {
               <FrameCounter />
             </Col>
           </Row>
-          <CSSanimation stop={stop} particlesCount={particles} />
+          { warning && <Row><Col>
+            <Alert variant='warning' onClose={this.handleDismiss.bind(this)} dismissible>
+              { warning }
+            </Alert>
+          </Col></Row>}
+          <GSAPanimation stop={stop} particlesCount={particles} />
         </Container>
       </div>
     );
