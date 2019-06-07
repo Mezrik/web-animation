@@ -22,7 +22,7 @@ const generateAnimation = (seed, max) => {
       30% {-webkit-transform:translate(${(Math.random() * (seed + seed)) - seed}%, ${(Math.random() * (seed + seed)) - seed}%)}
       50% {-webkit-transform:translate(${(Math.random() * (seed + seed)) - seed}%, ${(Math.random() * (seed + seed)) - seed}%)}
       80% {-webkit-transform:translate(${(Math.random() * (seed + seed)) - seed}%, ${(Math.random() * (seed + seed)) - seed}%)}
-      90% {-webkit-transform:translate(${(Math.random() * (seed + seed)) - seed}%, ${(Math.random() * (seed + seed)) - seed}%)}
+      100% {-webkit-transform:translate(${(Math.random() * (seed + seed)) - seed}%, ${(Math.random() * (seed + seed)) - seed}%)}
   }`;
 
   styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
@@ -37,7 +37,7 @@ export const CSSanimation = (props) => {
       animationDuration: '5s',
       animationDelay: '0.0s',
       animationIterationCount: 'infinite',
-      animationDirection: 'normal',
+      animationDirection: 'alternate',
       animationFillMode: 'forwards'
   }
 
@@ -52,9 +52,10 @@ export const CSSanimation = (props) => {
     return <div className="dot" style={movementAnimation}></div>;
   });
 
-  return <div className="animation-frame">{particles}</div>;
+  return <div className="animation-frame">{props.stop ? null : particles}</div>;
 }
 
 CSSanimation.propTypes = {
   particlesCount: PropTypes.number,
+  stop: PropTypes.bool,
 }

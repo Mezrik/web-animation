@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button, ButtonToolbar, Badge } from 'react-bootstrap';
 
 export class FrameCounter extends React.Component {
   constructor(props) {
@@ -43,9 +44,9 @@ export class FrameCounter extends React.Component {
   render() {
     const { times, fps } = this.state;
 
-    return <div>
-        <button onClick={this.toggleMeasuring.bind(this)}>Toggle fps</button>
-        <h2>{fps}</h2>
-      </div>
+    return <ButtonToolbar>
+        <Button variant='secondary' onClick={this.toggleMeasuring.bind(this)}>Toggle fps</Button>
+        <Badge className='frames' variant='light'>{fps}</Badge>
+      </ButtonToolbar>
   }
 }
