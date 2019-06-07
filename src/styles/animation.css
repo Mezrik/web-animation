@@ -9,7 +9,7 @@
 }
 
 .animation-frame {
-  width: 75vw;
-  height: 75vw;
+  width: 100%;
+  min-height: 80vh;
   overflow: hidden;
 }

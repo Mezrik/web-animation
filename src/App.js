@@ -5,6 +5,7 @@ import {
   Button,
   Container, Row, Col,
   Alert,
+  Dropdown, ButtonGroup
 } from 'react-bootstrap';
 
 import './styles/App.css';
@@ -22,6 +23,7 @@ export class App extends React.Component {
       stop: true,
       particles: 100,
       warning: null,
+      animation: 0,
     }
   }
 
@@ -40,11 +42,25 @@ export class App extends React.Component {
   }
 
   render() {
-    const { stop, particles, warning } = this.state;
+    const { stop, particles, warning, animation } = this.state;
+
+    const animations = {
+      0: {
+        id: 0,
+        name: 'CSS Animation',
+        animation: <CSSanimation stop={stop} particlesCount={particles} />,
+      },
+      1: {
+        id: 1,
+        name: 'Greensock JS Animation',
+        animation: <GSAPanimation stop={stop} particlesCount={particles} />,
+      },
+    }
 
     return (
       <div className='App'>
         <Container>
+
           <Row className='controls'>
             <Col xs={3}>
               <InputGroup className='mb-3'>
@@ -59,19 +75,36 @@ export class App extends React.Component {
                 </InputGroup.Append>
               </InputGroup>
             </Col>
-            <Col xs={2}>
-              <Button onClick={() => this.setState({ stop: !this.state.stop })} variant='primary'>Toggle animation</Button>
+
+            <Col xs={3}>
+              <Dropdown as={ButtonGroup} onSelect={(key) => this.setState({ animation: key })}>
+                <Button variant='primary' onClick={() => this.setState({ stop: !this.state.stop })}>Toggle animation</Button>
+                <Dropdown.Toggle split variant='primary' id='dropdown-split-basic' />
+                <Dropdown.Menu>
+                  {Object.keys(animations).map((key, i) => {
+                    return <Dropdown.Item key={`select-item-${i}`} eventKey={key}>{animations[key].name}</Dropdown.Item>;
+                  })}
+                </Dropdown.Menu>
+              </Dropdown>
             </Col>
+
             <Col>
               <FrameCounter />
             </Col>
           </Row>
+
           { warning && <Row><Col>
             <Alert variant='warning' onClose={this.handleDismiss.bind(this)} dismissible>
               { warning }
             </Alert>
           </Col></Row>}
-          <GSAPanimation stop={stop} particlesCount={particles} />
+
+          {animations[animation] && <Row>
+            <Col>
+              <h3>{animations[animation].name}</h3>
+              {animations[animation].animation}
+            </Col>
+          </Row>}
         </Container>
       </div>
     );

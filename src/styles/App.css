@@ -1,10 +1,20 @@
+body, html {
+  min-height: 100%;
+}
+
 .App {
   padding: 2rem;
   background-color: #282c34;
+  width: 100vw;
+  height: 100vh;
 }
 
 .frames {
   display: inline-block;
   font-size: 1.5rem;
   margin-left: 1rem;
+}
+
+h3 {
+  color: #fff;
 }
