@@ -96,7 +96,6 @@ export class CanvasAnimation extends React.Component {
   animation(ctx, balls) {
     const { height, width } = this.state.canvasSize;
 
-    console.log(true);
     ctx.fillStyle = '#282c34';
     ctx.fillRect(0, 0, width, height)
     for(let i = 0; i < balls.length; i++) {
@@ -109,7 +108,6 @@ export class CanvasAnimation extends React.Component {
     const canvas = this.canvas;
 
     if (canvas) {
-      console.log(canvas);
       const ctx = canvas.getContext('2d');
 
       let balls = new Array(this.props.particlesCount);
