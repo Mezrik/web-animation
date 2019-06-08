@@ -91,11 +91,13 @@ export class CanvasAnimation extends React.Component {
     }
 
     this.canvas = null;
+    this.animationInterval = null;
   }
 
   animation(ctx, balls) {
     const { height, width } = this.state.canvasSize;
 
+    console.log(true);
     ctx.fillStyle = '#282c34';
     ctx.fillRect(0, 0, width, height)
     for(let i = 0; i < balls.length; i++) {
@@ -108,28 +110,35 @@ export class CanvasAnimation extends React.Component {
     const canvas = this.canvas;
 
     if (canvas) {
+      console.log(canvas);
       const ctx = canvas.getContext('2d');
 
       let balls = new Array(this.props.particlesCount);
       for(let i = 0; i < balls.length; i++)
         balls[i] = new Ball(ctx, 10)
 
-      setInterval(() => this.animation(ctx, balls), 33)
+      return setInterval(() => this.animation(ctx, balls), 50);
     }
   }
 
   componentDidMount() {
     const { height, width } = this.state.canvasSize;
     if (!this.props.stop) {
-      this.initCanvas(width, height);
+      this.animationInterval = this.initCanvas(width, height);
     }
+  }
+
+  componentWillUnmount() {
+    this.canvas = null;
+    clearInterval(this.animationInterval);
   }
 
   componentDidUpdate(prevProps, prevState) {
 
     const { height, width } = this.state.canvasSize;
     if (this.props.stop !== prevProps.stop) {
-      this.initCanvas(width, height);
+      clearInterval(this.animationInterval);
+      this.animationInterval = this.initCanvas(width, height);
     }
   }
 
