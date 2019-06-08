@@ -49,6 +49,10 @@ export class GSAPanimation extends React.Component {
     this.particlesAnimations.paused(this.props.stop);
   }
 
+  componentWillUnmount() {
+      this.particlesAnimations.kill();
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if (this.props.particlesCount !== prevProps.particlesCount) {
       const { seed } = this.state;
