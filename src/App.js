@@ -13,6 +13,7 @@ import './styles/App.css';
 import { FrameCounter } from './components/FrameCounter';
 import { CSSanimation } from './components/animations/CSSanimation';
 import { GSAPanimation } from './components/animations/GSAPanimation';
+import { CanvasAnimation } from './components/animations/CanvasAnimation';
 
 export class App extends React.Component {
   constructor(props) {
@@ -41,6 +42,10 @@ export class App extends React.Component {
     });
   }
 
+  setWarning(warning) {
+    this.setState({ warning })
+  }
+
   render() {
     const { stop, particles, warning, animation } = this.state;
 
@@ -54,6 +59,11 @@ export class App extends React.Component {
         id: 1,
         name: 'Greensock JS Animation',
         animation: <GSAPanimation stop={stop} particlesCount={particles} />,
+      },
+      2: {
+        id: 2,
+        name: 'Canvas requestAnimationFrame animation',
+        animation: <CanvasAnimation stop={stop} particlesCount={particles} setWarning={(warning) => this.setWarning(warning)} />,
       },
     }
 
@@ -76,20 +86,19 @@ export class App extends React.Component {
               </InputGroup>
             </Col>
 
-            <Col xs={3}>
-              <Dropdown as={ButtonGroup} onSelect={(key) => this.setState({ animation: key })}>
-                <Button variant='primary' onClick={() => this.setState({ stop: !this.state.stop })}>Toggle animation</Button>
-                <Dropdown.Toggle split variant='primary' id='dropdown-split-basic' />
-                <Dropdown.Menu>
-                  {Object.keys(animations).map((key, i) => {
-                    return <Dropdown.Item key={`select-item-${i}`} eventKey={key}>{animations[key].name}</Dropdown.Item>;
-                  })}
-                </Dropdown.Menu>
-              </Dropdown>
-            </Col>
-
             <Col>
-              <FrameCounter />
+              <ButtonGroup>
+                <Dropdown as={ButtonGroup} onSelect={(key) => this.setState({ animation: key })}>
+                  <Button variant='primary' onClick={() => this.setState({ stop: !this.state.stop })}>Toggle animation</Button>
+                  <Dropdown.Toggle split variant='primary' id='dropdown-split-basic' />
+                  <Dropdown.Menu>
+                    {Object.keys(animations).map((key, i) => {
+                      return <Dropdown.Item key={`select-item-${i}`} eventKey={key}>{animations[key].name}</Dropdown.Item>;
+                    })}
+                  </Dropdown.Menu>
+                </Dropdown>
+                <FrameCounter stop={stop} />
+              </ButtonGroup>
             </Col>
           </Row>
 

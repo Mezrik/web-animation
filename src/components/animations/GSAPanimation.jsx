@@ -45,6 +45,8 @@ export class GSAPanimation extends React.Component {
       ref &&
         this.particlesAnimations.add(this.generateAnimation(ref, seed), 0);
     });
+
+    this.particlesAnimations.paused(this.props.stop);
   }
 
   componentDidUpdate(prevProps, prevState) {

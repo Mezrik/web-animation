@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Button, ButtonToolbar, Badge } from 'react-bootstrap';
 
 export class FrameCounter extends React.Component {
@@ -7,20 +8,25 @@ export class FrameCounter extends React.Component {
     this.state = {
       times: [],
       fps: 0,
-      measuring: false,
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.measuring !== prevState.measuring)
+    if (this.props.stop !== prevProps.stop) {
+      this.setState({
+        times: [],
+        fps: 0
+      });
       this.refreshLoop();
+    }
   }
 
   refreshLoop() {
-    let { fps, measuring } = this.state;
+    let { fps } = this.state;
+    const { stop } = this.props;
     const times = [...this.state.times];
 
-    if (measuring) window.requestAnimationFrame(() => {
+    if (!stop) window.requestAnimationFrame(() => {
       const now = performance.now();
       while (times.length > 0 && times[0] <= now - 1000) {
         times.shift();
@@ -33,20 +39,13 @@ export class FrameCounter extends React.Component {
     });
   }
 
-  toggleMeasuring() {
-    this.setState({
-      times: [],
-      fps: 0,
-      measuring: !this.state.measuring,
-    });
-  }
 
   render() {
     const { times, fps } = this.state;
-
-    return <ButtonToolbar>
-        <Button variant='secondary' onClick={this.toggleMeasuring.bind(this)}>Toggle fps</Button>
-        <Badge className='frames' variant='light'>{fps}</Badge>
-      </ButtonToolbar>
+    return <Badge className='frames' variant='light'>FPS: {fps}</Badge>
   }
+}
+
+FrameCounter.propTypes = {
+  stop: PropTypes.bool,
 }
