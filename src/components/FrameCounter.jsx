@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, ButtonToolbar, Badge } from 'react-bootstrap';
+import { Badge } from 'react-bootstrap';
 
 export class FrameCounter extends React.Component {
   constructor(props) {
@@ -45,7 +45,7 @@ export class FrameCounter extends React.Component {
 
 
   render() {
-    const { times, fps } = this.state;
+    const { fps } = this.state;
     return <Badge className='frames' variant='light'>FPS: {fps}</Badge>
   }
 }

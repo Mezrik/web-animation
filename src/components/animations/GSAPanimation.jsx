@@ -41,10 +41,10 @@ export class GSAPanimation extends React.Component {
   componentDidMount() {
     const { seed } = this.state;
 
-    this.particlesRefs.map((ref, i) => {
+    this.particlesRefs.map((ref, i) =>
       ref &&
-        this.particlesAnimations.add(this.generateAnimation(ref, seed), 0);
-    });
+        this.particlesAnimations.add(this.generateAnimation(ref, seed), 0)
+    );
 
     this.particlesAnimations.paused(this.props.stop);
   }
@@ -58,10 +58,10 @@ export class GSAPanimation extends React.Component {
       const { seed } = this.state;
       this.particlesAnimations = this.particlesAnimations.clear();
 
-      this.particlesRefs.map((ref, i) => {
+      this.particlesRefs.map((ref, i) =>
         ref &&
-          this.particlesAnimations.add(this.generateAnimation(ref, seed), 0);
-      });
+          this.particlesAnimations.add(this.generateAnimation(ref, seed), 0)
+      );
     }
 
     if (this.props.stop !== prevProps.stop) {
@@ -70,7 +70,7 @@ export class GSAPanimation extends React.Component {
   }
 
   render() {
-    const { particlesCount, stop } = this.props;
+    const { particlesCount } = this.props;
 
     this.particlesRefs = [];
     const particles = [];
@@ -80,6 +80,7 @@ export class GSAPanimation extends React.Component {
         className="dot"
         style={{ backgroundColor: getRandomColor() }}
         ref={(ref) => { this.particlesRefs.push(ref);}}
+        key={`particle-${i}`}
         ></div>);
     }
 

@@ -36,14 +36,14 @@ export const CSSanimation = (props) => {
   }
 
   const seeds = new Array(props.particlesCount).fill(Math.floor(random(200, 250)));
-  let particles = seeds.map((seed) => {
+  let particles = seeds.map((seed, i) => {
     movementAnimation = {
       ...movementAnimation,
       animationName: generateAnimation(seed, props.particlesCount),
       backgroundColor: getRandomColor()
     }
 
-    return <div className="dot" style={movementAnimation}></div>;
+    return <div key={`particle-${i}`} className="dot" style={movementAnimation}></div>;
   });
 
   return <div className="animation-frame">{props.stop ? null : particles}</div>;

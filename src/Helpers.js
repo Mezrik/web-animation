@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const random = (min, max) => {
     if (max == null) {
         max = min;

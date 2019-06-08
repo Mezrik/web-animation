@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import '../../styles/animation.css';
 
 import { getRandomColor, random } from '../../Helpers';
-import { animationConfig } from '../../config.js';
 
 // Source: http://codentronix.com/2012/01/24/html5-canvas-crazy-balls/
 function floatEquals(v1,v2,delta) {
@@ -143,7 +142,7 @@ export class CanvasAnimation extends React.Component {
   }
 
   render() {
-    const { particlesCount, stop } = this.props;
+    const { stop } = this.props;
     const { height, width } = this.state.canvasSize;
 
     return !stop ? <canvas ref={ref => this.canvas = ref} width={width} height={height} /> : <span></span>;
