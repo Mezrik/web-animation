@@ -35,7 +35,7 @@ export const CSSanimation = (props) => {
       animationFillMode: 'forwards'
   }
 
-  const seeds = new Array(props.particlesCount).fill(Math.floor(random(200, 300)));
+  const seeds = new Array(props.particlesCount).fill(Math.floor(random(200, 250)));
   let particles = seeds.map((seed) => {
     movementAnimation = {
       ...movementAnimation,

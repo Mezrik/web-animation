@@ -21,7 +21,7 @@ export class App extends React.Component {
     this.particlesCount = React.createRef();
 
     this.state = {
-      stop: true,
+      stop: false,
       particles: 100,
       warning: null,
       animation: 0,
@@ -114,6 +114,10 @@ export class App extends React.Component {
               {animations[animation].animation}
             </Col>
           </Row>}
+          <footer>
+            Created for purpose of Specialist English exam presentation | <b>Source code: </b>
+            <a href="https://github.com/Mezrik/web-animation">https://github.com/Mezrik/web-animation</a>
+          </footer>
         </Container>
       </div>
     );

@@ -12,7 +12,7 @@ export class GSAPanimation extends React.Component {
     super(props);
 
     this.state = {
-      seed: Math.floor(random(200, 300)),
+      seed: Math.floor(random(200, 250)),
     }
 
     this.particlesRefs = [];

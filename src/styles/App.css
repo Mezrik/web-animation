@@ -2,6 +2,10 @@ body, html {
   min-height: 100%;
 }
 
+footer {
+  color: #fff;
+}
+
 .App {
   padding: 2rem;
   background-color: #282c34;
@@ -10,7 +14,7 @@ body, html {
 }
 
 canvas {
-  margin: 2rem auto;
+  margin: 2rem auto 3rem;
   display: block;
 }
 
