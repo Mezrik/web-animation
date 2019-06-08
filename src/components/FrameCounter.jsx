@@ -11,6 +11,10 @@ export class FrameCounter extends React.Component {
     }
   }
 
+  componentDidMount() {
+    !this.props.stop && this.refreshLoop();
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if (this.props.stop !== prevProps.stop) {
       this.setState({

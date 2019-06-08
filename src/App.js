@@ -72,7 +72,7 @@ export class App extends React.Component {
         <Container>
 
           <Row className='controls'>
-            <Col xs={3}>
+            <Col xs={4}>
               <InputGroup className='mb-3'>
                 <FormControl
                   placeholder='Particles count'
