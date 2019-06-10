@@ -115,7 +115,7 @@ export class App extends React.Component {
             </Col>
           </Row>}
           <footer>
-            Created for purpose of Specialist English exam presentation <br/>
+            Created for the purpose of Specialist English exam presentation <br/>
             <b>Source code: </b>
             <a href="https://github.com/Mezrik/web-animation">https://github.com/Mezrik/web-animation</a>
           </footer>
